@@ -1,0 +1,45 @@
+@startuml
+package "ODA" {
+  () "ODA HL7 FHIR" as hl7
+  () "OpenID Provider" as idp
+  [API Gateway] as gw
+  [oda-idp]
+  [ODA FHIR Service] as fhir
+  [oda-phr] as ophr
+}
+
+package "KaPA Services" {
+  [Suomi.fi-tunnistus]
+}
+
+package "Local services" {
+  () "AV HL7 FHIR" as avfhir
+  [EHR]
+  [Appointment Service]
+}
+
+package "Kela Services” {
+  [Kanta]
+  [Kansa]
+  [Omatietovaranto] as phr
+}
+
+actor Professional
+
+[oda-idp] -- idp
+gw -- hl7
+[oda-idp] --> ophr
+fhir --> ophr
+[Appointment Service] -- avfhir
+[EHR] --> idp
+[EHR] --> hl7
+Professional --> [EHR]
+fhir --> avfhir
+fhir --> [Kanta]
+fhir --> [Kansa]
+[oda-idp] --> [Suomi.fi-tunnistus]
+gw --> fhir
+[EHR] --> [Appointment Service]
+fhir --> phr
+@enduml
+
