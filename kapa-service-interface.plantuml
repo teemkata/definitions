@@ -1,0 +1,42 @@
+@startuml
+package "ODA" {
+  () "OpenID Provider" as idp
+  [oda-idp]
+  [oda-esb]
+  [oda-phr] as ophr
+  [ODA FHIR Service] as fhir
+}
+
+package "KaPA Services" {
+  () "ODA KaPA Services" as kapaapi
+  [Suomi.fi-tunnistus]
+  [Suomi.fi-palveluväylä] as pv
+}
+
+package "Local services" {
+  [EHR]
+}
+
+package "Kela Services” {
+  [Kanta]
+  [Kansa]
+  [Omatietovaranto] as phr
+}
+
+actor Professional
+
+[oda-idp] -up- idp
+pv -up- kapaapi
+[EHR] --> idp
+Professional --> [EHR]
+[oda-esb] <--> pv
+[oda-esb] <--> fhir
+fhir --> [Kanta]
+fhir --> [Kansa]
+[oda-idp] --> [Suomi.fi-tunnistus]
+[EHR] --> kapaapi
+fhir --> phr
+[oda-idp] -->ophr
+fhir --> ophr
+@enduml
+
