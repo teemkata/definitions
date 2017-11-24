@@ -1,0 +1,16 @@
+@startuml
+folder ODA {
+ [ODA palvelut] as op
+ [oda-analytics-service] as analytics
+ [oda-logging-service] as logging
+ [ODA ylläpitosovellus] as ys
+ database analyticsDB  
+}
+
+op ..> logging : lokitieto
+logging ..> analytics : lokitieto
+analytics ..> analyticsDB : "rikastettu lokitieto"
+analytics ..> ys : raportti
+ys ..> analytics : kysely
+@enduml
+

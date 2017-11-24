@@ -1,0 +1,20 @@
+@startuml
+package ODA {
+  [oda-phr] as phr
+  [ODA FHIR -palvelu] as service
+}
+
+package "KaPA" {
+  [Suomi.fi-tunnistus] as auth
+}
+
+[OpenID Connect\nProvider] as idp
+[Toimijan\ntunnistautumispalvelu] ..> idp : Tunnistautumistieto, konteksti
+
+idp ..> [EHR] : Kirjautumistunniste
+auth ..> idp : Tunnistautumistieto
+phr ..> idp : Ammattilaisen tiedot
+[EHR] ..> service : Kirjautumistunniste, HL7 FHIR -resurssipyyntö
+service ..> [EHR] : HL7 FHIR -resurssi
+@enduml
+

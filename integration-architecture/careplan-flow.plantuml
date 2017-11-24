@@ -1,0 +1,27 @@
+@startuml
+package ODA {
+  [Hoitosuunnitelma\n(oda-phr)] as hs
+  [Työjono\n(oda-phr)] as wq
+  [Lääketieteellisen tietämyksen\nmoottori] as oda1
+  [Mediavarasto] ..> hs : Liitetiedostot
+  [ODA sovellus\n(Asiakas)]
+}
+
+package Kela {
+  [Kanta]
+  [Omatietovaranto]
+}
+
+[Mittalaite] ..> [Omatietovaranto] : Mittaus
+[Laboratorio] ..> [Kanta] : Laboratoriotulokset
+[EHR] ..> hs : Hoitotapahtuma, Kommentit
+[EHR] ..> [Kanta] : Potilaskertomus
+[Omatietovaranto] ..> hs : Esitiedot, mittaukset
+[Kanta] ..> hs : Lääkitys, riskitiedot, diagnoosit
+oda1 ..> hs : Hoitosuositus
+hs ..> wq : Hoitosuunnitelma
+wq ..> [EHR] : Hoitosuunnitelma
+hs ..> [ODA sovellus\n(Asiakas)] : Ilmoitukset
+hs ..> [EHR] : Ilmoitukset
+[ODA sovellus\n(Asiakas)] ..> hs : Kommentit
+@enduml

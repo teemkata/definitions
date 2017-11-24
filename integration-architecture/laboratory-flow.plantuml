@@ -1,0 +1,34 @@
+@startuml
+package ODA {
+  [ODAn laboratoriolähete] as lab
+  [oda-phr] as phr
+  [Lääketieteellisen tietämyksen\nmoottori] as oda1
+}
+
+package "VRK" {
+  [VTJ]
+}
+
+package Kela {
+  [Kanta]
+  [Omakanta]
+  [Kanta] ..> [Omakanta] : Laboratoriotulokset
+}
+
+package KaPA {
+  [Suomi.fi-palvelutietovaranto] as ptv
+}
+
+lab ..> oda1 : Oirearvio
+lab ..> [Laboratorio] : Lähete
+[Laboratorion\najanvaraus] ..> [Laboratorio] : Ajanvaraus
+lab ..> [Laboratorion\najanvaraus] : Ajanvaraus
+[Laboratorio] ..> [Kanta] : Laboratoriotulokset
+
+[VTJ] ..> phr : Asiakastiedot
+oda1 ..> lab : Palvelukoodi
+lab ..> phr : Palvelukoodi
+ptv ..> phr : Toimipiste
+phr ..> ptv : Toimija
+phr ..> lab : Toimija
+@enduml

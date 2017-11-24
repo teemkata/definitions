@@ -1,0 +1,24 @@
+@startuml
+skinparam rectangle {
+    roundCorner<<Palvelu>> 15
+}
+
+rectangle "Kansalaisen palvelut" {
+        rectangle "Hyvinvointitarkastus\nja -valmennus" <<Palvelu>>
+        rectangle "Älykkäät oire-\nja hyvinvoinnin arviot" <<Palvelu>>
+        rectangle "Hyvinvointisuunnitelma" <<Palvelu>>
+}
+
+rectangle "Tukipalvelut" {
+        rectangle "Ajanvaraus" <<Palvelu>>
+        rectangle "Lääketieteellisen\ntietämyksen moottori" <<Palvelu>>
+        rectangle "Tunnistautuminen" <<Palvelu>>
+	rectangle "Laboratoriolähetteet" <<Palvelu>>
+}
+
+rectangle "Ammattilaisen palvelut" {
+        rectangle "Työjono" <<Palvelu>>
+        rectangle "Hoitosuunnitelma" <<Palvelu>>
+}
+@enduml
+

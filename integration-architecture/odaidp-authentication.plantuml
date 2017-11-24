@@ -1,0 +1,26 @@
+@startuml
+actor Professional
+
+package ODA {
+  [API Gateway] as gw
+  [oda-idp] as idp
+  [oda-phr] as phr
+  [ODA FHIR Service] as fhir
+}
+
+package "Local Services" {
+  agent EHR
+}
+
+package "KaPA Services" {
+  [eIdentification]
+}
+
+Professional --> EHR
+
+gw --> idp : JWT
+idp --> phr
+EHR --> gw
+gw --> fhir : "HL7 FHIR + JWT"
+idp --> eIdentification
+@enduml

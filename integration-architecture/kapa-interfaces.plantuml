@@ -1,0 +1,55 @@
+@startuml
+package "ODA" {
+  [API Gateway] as gw
+  [oda-idp] as idp
+  [ODA FHIR Service] as fhir
+  [oda-esb] as esb
+  [oda-phr] as ophr
+}
+
+package "KaPA Services" {
+  [eIdentification]
+  [Data Exchange\nLayer] as pv
+}
+
+package "Local services" {
+  agent EHR
+  [Appointment Service] as avfhir
+}
+
+package "Kela Services” {
+  [Kanta]
+  [Kansa]
+  [Omatietovaranto] as phr
+}
+
+package "External Services" {
+  [Laboratory\nSystem] as lab
+  [Laboratory Appointment\nBooking] as labab
+  lab --> labab
+  lab --> [Kanta]
+}
+
+actor Professional
+actor Customer
+agent Browser
+
+Customer --> Browser
+Professional --> [EHR]
+
+Browser --> gw
+idp --> ophr
+gw --> idp
+fhir --> ophr
+[EHR] --> gw
+[EHR] --> pv
+fhir --> lab
+fhir --> avfhir
+fhir --> [Kanta]
+fhir --> [Kansa]
+idp --> [eIdentification]
+[EHR] --> avfhir
+fhir --> phr
+esb <--> fhir
+esb <--> pv
+@enduml

@@ -1,0 +1,27 @@
+@startuml
+package ODA {
+  [ODAn ajanvaraus] as av
+  [oda-phr] as phr
+  [Lääketieteellisen tietämyksen\nmoottori] as oda1
+}
+
+package "VRK" {
+  [VTJ]
+}
+
+package KaPA {
+  [Suomi.fi-palvelutietovaranto] as ptv
+}
+
+av ..> oda1 : Oirearvio
+[EHR] ..> av : Ajanvaraukset
+av ..> [EHR] : Palvelukoodi, Ajanvaraus
+[VTJ] ..> phr : Asiakastiedot
+oda1 ..> av : Palvelukoodi
+ptv ..> phr : Toimipiste
+phr ..> ptv : Toimija
+av ..> phr : Ajanvaraus
+av ..> phr : Palvelukoodi
+phr ..> av : Toimija
+@enduml
+
